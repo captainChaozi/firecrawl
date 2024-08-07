@@ -286,6 +286,7 @@ export async function scrapSingleUrl(
             Logger.error(`Invalid URL key, trying: ${urlToScrap}`)
         }
         const defaultScraper = urlSpecificParams[urlKey]?.defaultScraper ?? ''
+        Logger.debug(`pageOptions: ${JSON.stringify(pageOptions)}`)
         const scrapersInOrder = getScrapingFallbackOrder(
             defaultScraper,
             pageOptions && pageOptions.waitFor && pageOptions.waitFor > 0,
