@@ -78,8 +78,6 @@ function getScrapingFallbackOrder(
                 return true
         }
     })
-    Logger.debug(`env vars: ${JSON.stringify(process.env)}`)
-    Logger.debug(`Available scrapers: ${availableScrapers.join(', ')}`)
     let defaultOrder = [
         !process.env.USE_DB_AUTHENTICATION ? undefined : 'fire-engine',
         !process.env.USE_DB_AUTHENTICATION ? undefined : 'fire-engine;chrome-cdp',
@@ -286,16 +284,8 @@ export async function scrapSingleUrl(
         } catch (error) {
             Logger.error(`Invalid URL key, trying: ${urlToScrap}`)
         }
-        const defaultScraper = urlSpecificParams[urlKey]?.defaultScraper ?? ''
         Logger.debug(`pageOptions: ${JSON.stringify(pageOptions)}`)
-        const scrapersInOrder = getScrapingFallbackOrder(
-            defaultScraper,
-            pageOptions && pageOptions.waitFor && pageOptions.waitFor > 0,
-            pageOptions &&
-                (pageOptions.screenshot || pageOptions.fullPageScreenshot) &&
-                (pageOptions.screenshot === true || pageOptions.fullPageScreenshot === true),
-            pageOptions && pageOptions.headers && pageOptions.headers !== undefined
-        )
+        const scrapersInOrder = ['playwright']
 
         Logger.debug(`⛏️ Scraping ${urlToScrap} with scrapers: ${scrapersInOrder.join(', ')}`)
 
