@@ -78,7 +78,8 @@ function getScrapingFallbackOrder(
                 return true
         }
     })
-
+    Logger.debug(`env vars: ${JSON.stringify(process.env)}`)
+    Logger.debug(`Available scrapers: ${availableScrapers.join(', ')}`)
     let defaultOrder = [
         !process.env.USE_DB_AUTHENTICATION ? undefined : 'fire-engine',
         !process.env.USE_DB_AUTHENTICATION ? undefined : 'fire-engine;chrome-cdp',
